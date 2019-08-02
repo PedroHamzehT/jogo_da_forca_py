@@ -43,17 +43,16 @@ print('A media do aluno foi: {}'.format(round(user_average, 2)))
 
 # Estrutura de dados Ex 4 e Ex 5
 print('*' * 50)
-user_infos = {}
 users = []
 while True:
-    pdb.set_trace()
-    user_infos['name'] = input('Digite o seu nome por favor: ')
-    user_infos['age'] = input('Digite a sua idade por favor: ')
-    user_infos['city'] = input('Digite a cidade onde mora por favor: ')
-    users.append(user_infos)
+    name = input('Digite o seu nome por favor: ')
+    age = input('Digite a sua idade por favor: ')
+    city = input('Digite a cidade onde mora por favor: ')
+    users.append({'name': name, 'age': age, 'city': city})
     if(input('Quer adicionar outro usuario? (S/N) ').upper() == 'N'):
         break
 for user in users:
     print('{}: {}'.format('nome', user['name']))
     print('{}: {}'.format('idade', user['age']))
     print('{}: {}'.format('cidade', user['city']))
+    print('*' * 10)
