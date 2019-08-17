@@ -1,20 +1,17 @@
 import pdb
 import random
 
-
-def jogar():
+def boas_vindas():
     print('*' * 31)
     print('* Bem vindo ao jodo da Forca! *')
     print('*' * 31)
 
-    print('')
-
+def escolha_a_dificuldade():
     print('***************************************')
     print('*   Escolha o nivel de dificuldade:   *')
     print('*                                     *')
     print('* 1 - Facil | 2 - Medio | 3 - Dificil *')
     print('***************************************')
-
     difficult = int(input())
     if(difficult == 1):
         tries = 20
@@ -25,16 +22,31 @@ def jogar():
     else:
         tries = 5
         print('Dificuldade escolhida: Dificil')
-
-    fruits = []
-    file = open("frutas.txt", "r")
-    for line in file.readlines():
-        fruits.append(line.rstrip())
     
-    file.close()
+    return tries
+
+def gerar_frutas():
+    fruits = []
+    with open('frutas.txt', 'r') as file:
+        for line in file.readlines():
+            fruits.append(line.rstrip())
+    
+    return fruits
+
+def escolher_palavra_secreta(fruits):
+    random_index = random.randint(0, len(fruits)+1)
+    secret_word = fruits[random_index]
+    return secret_word
+
+def jogar():
+    print('')
+
+    tries = escolha_a_dificuldade()
+
+    fruits = gerar_frutas()
+
     while True:
-        random_index = random.randint(0, len(fruits))
-        secret_word = fruits[random_index]
+        secret_word = escolher_palavra_secreta(fruits)
         discovered_letters = []
         for letter in secret_word:
             discovered_letters.append('_')
@@ -76,9 +88,9 @@ def jogar():
             print('Letras que ja foram:')
             letters_tried_in_string = ' '.join(letters_tried)
             print(letters_tried_in_string)
-            word_discovering = ''.join(discovered_letters)
+            word_discovering = ' '.join(discovered_letters)
             print(word_discovering)
-            word_discovered = ''.join(discovered_letters)
+            word_discovered = ' '.join(discovered_letters)
             discovered = word_discovered.upper() == secret_word.upper()
             print('\n')
             print('*' * 50)
